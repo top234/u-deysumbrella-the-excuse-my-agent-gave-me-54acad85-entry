@@ -17,6 +17,9 @@ if (ENTRY.trim() !== ENTRY) {
 if (ENTRY.includes("\n") || ENTRY.includes("\r")) {
   throw new Error("entry must be a single line");
 }
+if (/[\u0000-\u001F]/.test(ENTRY)) {
+  throw new Error("entry must not contain control characters");
+}
 
 const outDir = process.env.OUTPUT_DIR ?? "/output";
 const outPath = join(outDir, "entry.txt");
